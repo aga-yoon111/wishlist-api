@@ -65,23 +65,23 @@ def get_wishlist_item(item_id):
     security={},
     tags=["wishlist"],
 )
-def create_wishlist_item():
+def create_wishlist_item(data: WishlistItemCreate):
     """
     Create an wish
     """
-    data = request.json
 
     item= WishlistItem(
-        name=data["name"],
-        description=data.get["description"],
-        link=data.get["link"],
-        sort_order=data.get["sort_order"],
+        name=data.name,
+        description=data.description,
+        link=data.link,
+        sort_order=data.sort_order,
     )
 
     db.session.add(item)
     db.session.commit()
+    
 
-    return {"msg": "Item created successfully."}, 201
+    return { "id": item.id, "msg": "Item criado com sucesso.", }, 201
 
 
 @wish_controller.put("/<int:item_id>")
