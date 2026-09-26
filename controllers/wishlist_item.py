@@ -62,27 +62,23 @@ def get_wishlist_item(item_id):
 @api.validate(
     json=WishlistItemCreate,
     resp=Response(HTTP_201=WishlistItemMessage),
-    security={},
     tags=["wishlist"],
 )
-def create_wishlist_item(data: WishlistItemCreate):
-    """
-    Create an wish
-    """
-
-    item= WishlistItem(
-        name=data.name,
-        description=data.description,
-        link=data.link,
-        sort_order=data.sort_order,
+def create_wishlist_item(json: WishlistItemCreate):
+    item = WishlistItem(
+        name=json.name,
+        description=json.description,
+        link=json.link,
+        sort_order=json.sort_order,
     )
 
     db.session.add(item)
     db.session.commit()
-    
 
-    return { "id": item.id, "msg": "Item criado com sucesso.", }, 201
-
+    return {
+        "id": item.id,
+        "msg": "Item criado com sucesso.",
+    }, 201
 
 @wish_controller.put("/<int:item_id>")
 @api.validate(
