@@ -27,7 +27,9 @@ def create_app():
     db.init_app(app)
 
     migrate.init_app(app, db)
+    from models import WishlistItem
     from controllers import wish_controller
+    app.register_blueprint(wish_controller)
 
     api.register(app)
 

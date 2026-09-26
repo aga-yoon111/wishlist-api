@@ -17,7 +17,7 @@ class WishlistItemUpdate(BaseModel):
     
 
 class WishlistItemResponse(BaseModel):
-    model_config =ConfigDict(from_attributtes=True)
+    model_config =ConfigDict(from_attributes=True)
     id: int
     name: str
     description: Optional[str]
@@ -29,9 +29,9 @@ class WishlistItemResponse(BaseModel):
 
 
 class WishlistItemResponseList(BaseModel):
-   item: list[WishlistItemResponse]
+   items: list[WishlistItemResponse]
 
 
 class WishlistItemMessage(BaseModel):
-    id = int
-    msg = str
+    id: int
+    msg:  str

@@ -20,10 +20,10 @@ from schemas.wishlist_item import(
 wish_controller = Blueprint("wish_controller", __name__, url_prefix="/api/wishlist")
 
 
-@wish_controller.get("/")
-@api.validate(resp=Response(HTTP_200=WishlistItemResponse), tags=["wishlist"])
+@wish_controller.get("")
+@api.validate(resp=Response(HTTP_200=WishlistItemResponseList), tags=["wishlist"])
 
-def get_users():
+def get_wishlist_items():
     """
     Get all wishes
     """
@@ -61,7 +61,7 @@ def get_wishlist_item(item_id):
 @wish_controller.post("")
 @api.validate(
     json=WishlistItemCreate,
-    resp=Response(HTTP_201=WishlistItemResponse),
+    resp=Response(HTTP_201=WishlistItemMessage),
     security={},
     tags=["wishlist"],
 )
@@ -73,9 +73,9 @@ def create_wishlist_item():
 
     item= WishlistItem(
         name=data["name"],
-        description=data["description"],
-        link=data["link"],
-        sort_order=data["sort_order"],
+        description=data.get["description"],
+        link=data.get["link"],
+        sort_order=data.get["sort_order"],
     )
 
     db.session.add(item)
